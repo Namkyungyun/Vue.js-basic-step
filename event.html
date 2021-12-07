@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-header v-on:pass = 'logText'></app-header>
+        <app-content v-on:increase = 'increaseNumber'></app-content>
+        <app-num0 v-on:reset = 'resetNumber'></app-num0>
+        <app-decrease v-on:minus = 'decreaseNumber'></app-decrease>    
+        <app-num>{{num}}</app-num>
+       
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var appHeader = {
+            template: '<button v-on:click="passEvent">click me!</button>',
+            methods: {
+                passEvent: function(){
+                    this.$emit('pass');
+
+                }
+            }
+        }
+        
+        var appContent = {
+            template: '<button v-on:click="addNumber">add</button>',
+            methods: {
+                addNumber: function() {
+                    this.$emit('increase');
+
+                }
+            }
+        }
+
+        var appNumZero = {
+            template: '<button v-on:click="resetNum">reset</button>',
+            methods: {
+                resetNum: function() {
+                    this.$emit('reset');
+                }
+            }
+        }
+
+        var appDecrease = {
+            template: '<button v-on:click="decreaseNum">decrease</button>',
+            methods: {
+                decreaseNum: function() {
+                    this.$emit('minus');
+                }
+            }
+        }
+        new Vue ({
+            el: '#app',
+            components: {
+                'app-header': appHeader,
+                'app-content': appContent,
+                'app-decrease': appDecrease,
+                'app-num0': appNumZero
+            },
+            methods: {
+                logText: function(){
+                    console.log('hi');
+                },
+                increaseNumber: function() {
+                    this.num = this.num +1;
+                },
+                resetNumber: function() {
+                    this.num = 0;
+                },
+                decreaseNumber: function() {
+                    this.num = this.num -1;
+                }
+            },
+            data: {
+                num: 10
+            }
+
+        })
+
+
+    </script>
+
+</body>
+</html>
